@@ -9,20 +9,6 @@ const MessageInput = () => {
   const fileInputRef = useRef(null);
   const { sendMessage } = useChatStore();
 
-  // const handleImageChange = (e) => {
-  //   const file = e.target.files[0];
-  //   if (!file.type.startsWith("image/")) {
-  //     toast.error("Please select an image file");
-  //     return;
-  //   }
-  //   const reader = new FileReader();
-  //   reader.onloadend = () => {
-  //     setImagePreview(reader.result);
-  //   };
-  //   reader.readAsDataURL(file);
-  // };
-
-
 const MAX_FILE_SIZE_MB = 5;
 
 const handleImageChange = (e) => {
@@ -115,13 +101,17 @@ const handleImageChange = (e) => {
 
           <button
             type="button"
-            className={`hidden sm:flex btn btn-circle
+            className={`flex btn btn-circle
                      ${imagePreview ? "text-emerald-500" : "text-zinc-400"}`}
             onClick={() => fileInputRef.current?.click()}
           >
             <Image size={20} />
           </button>
         </div>
+
+
+
+
         <button
           type="submit"
           className="btn btn-sm btn-circle"
