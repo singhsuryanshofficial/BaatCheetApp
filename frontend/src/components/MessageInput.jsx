@@ -9,19 +9,46 @@ const MessageInput = () => {
   const fileInputRef = useRef(null);
   const { sendMessage } = useChatStore();
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (!file.type.startsWith("image/")) {
-      toast.error("Please select an image file");
-      return;
-    }
+  // const handleImageChange = (e) => {
+  //   const file = e.target.files[0];
+  //   if (!file.type.startsWith("image/")) {
+  //     toast.error("Please select an image file");
+  //     return;
+  //   }
+  //   const reader = new FileReader();
+  //   reader.onloadend = () => {
+  //     setImagePreview(reader.result);
+  //   };
+  //   reader.readAsDataURL(file);
+  // };
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setImagePreview(reader.result);
-    };
-    reader.readAsDataURL(file);
+
+const MAX_FILE_SIZE_MB = 5;
+
+const handleImageChange = (e) => {
+  const file = e.target.files[0];
+
+  if (!file.type.startsWith("image/")) {
+    toast.error("Please select an image file");
+    return;
+  }
+
+  // Check file size (in MB)
+  const isValidSize = file.size / 1024 / 1024 <= MAX_FILE_SIZE_MB;
+  if (!isValidSize) {
+    toast.error("Image size should not exceed 5MB.");
+    // Reset file input to allow user to pick again
+    if (fileInputRef.current) fileInputRef.current.value = "";
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onloadend = () => {
+    setImagePreview(reader.result);
   };
+  reader.readAsDataURL(file);
+};
+
 
   const removeImage = () => {
     setImagePreview(null);

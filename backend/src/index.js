@@ -16,7 +16,12 @@ dotenv.config();
 const PORT = process.env.PORT; //Reading .env file content (Port Number)
 const __dirname = path.resolve();
 
-app.use(express.json());
+// app.use(express.json()); Payload limit is 100kb
+
+//Increase payload limit to 10mb
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ extended: true, limit: "10mb" })); //useful for forms
+
 app.use(cookieParser());
 app.use(
   cors({
