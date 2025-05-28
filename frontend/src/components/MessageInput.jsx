@@ -86,11 +86,20 @@ const handleImageChange = (e) => {
         <div className="flex-1 flex gap-2">
           <input
             type="text"
-            className="w-full input input-bordered rounded-lg input-sm sm:input-md"
+            className="w-full input input-bordered rounded-lg input-sm sm:input-md min-h-12 py-2"
             placeholder="Type a message..."
             value={text}
             onChange={(e) => setText(e.target.value)}
           />
+{/* <input
+  type="text"
+  className="w-full input input-bordered rounded-lg input-sm sm:input-md min-h-12 py-2 flex-shrink-0"
+  placeholder="Type a message..."
+  value={text}
+  onChange={(e) => setText(e.target.value)}
+/> */}
+
+
           <input   //In chat section this is used to send attachments..... however it will be hidden..below this we have a button that on clicked...will call it and get the attachments inputs
             type="file"
             accept="image/*"
@@ -114,7 +123,7 @@ const handleImageChange = (e) => {
 
         <button
           type="submit"
-          className="btn btn-sm btn-circle"
+          className="btn btn btn-circle"
           disabled={!text.trim() && !imagePreview}
         >
           <Send size={22} />
